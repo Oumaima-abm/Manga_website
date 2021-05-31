@@ -1,0 +1,45 @@
+<h1>Alice in the borderlands</h1>
+<table>
+  <tr>
+    <th><img src="./../assets/Chishiya.jpg" width="100px" /></th>
+    <th><img src="./../assets/Ryouhei_Arisu.png" width="100px" /></th>
+    <th><img src="./../assets/Hikari_Kuina.jpg" width="100px" /></th>
+  </tr>
+  <tr>
+    <td>Shuntaro Chishia </td>
+    <td>Ryohei Arisu</td>
+    <td>Hikari kuina</td>
+  </tr>
+</table>
+
+
+<br /><br />
+<hr />
+<br /><br />
+
+<div>
+  <h1 *ngIf="authService.user | async">
+    Welcome !!
+  </h1>
+
+  <div *ngIf="!(authService.user | async)">
+    
+      <label>Email</label>
+      <input [(ngModel)]="email" type="email" placeholder="email" />
+    <br>
+      <label>Password</label>
+      <input  type="password" [(ngModel)]="password" placeholder="password" />
+    <br>
+    <button (click)="signUp()" [disabled]="!email || !password" style>
+      SignUP
+    </button>
+    <button (click)="signIn()" [disabled]="!email || !password">
+      SignIN
+    </button>
+  </div>
+  <button (click)="signOut()" *ngIf="(authService.user | async)">
+    SignOut
+  </button>
+</div>
+
+<router-outlet></router-outlet>
