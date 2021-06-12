@@ -1,5 +1,7 @@
 
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <style>
   
   body {
@@ -12,22 +14,22 @@ table {
     border: none;
   }
 .card {
-  width: 150px;                 /* Set width of cards */
+  width: 300px;                 /* Set width of cards */
   display: flex;                /* Children use Flexbox */
   flex-direction: column;       /* Rotate Axis */
-  border: 1px solid #EF9A9A;    /* Set up Border */
+  border: 1px solid #D8BFD8;    /* Set up Border */
   border-radius: 4px;           /* Slightly Curve edges */
   overflow: hidden;             /* Fixes the corners */
   margin: 5px;                  /* Add space between cards */
 }
 
 .card-header {
-  color: #D32F2F;
+  color: #9370DB;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  border-bottom: 1px solid #EF9A9A;
-  background-color: #FFEBEE;
+  border-bottom: 1px solid #D8BFD8;
+  background-color: #D8BFD8;
   padding: 5px 10px;
 }
 
@@ -38,9 +40,51 @@ table {
   align-items: center;        /* Group Children in Center (on cross axis) */
   padding: 15px 0;            /* Add padding to the top/bottom */
 }
+.main-description {
+  color: #9370DB;
+  font-size: 12px;
+  text-align: center;
+}
+.login-box {
+  position: relative;
+  left: 10%;
+  width: 400px;
+  padding: 40px;
+  background: #D8BFD8;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px #9370DB;
+  border-radius: 10px;
+}
 
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  color: #9370DB;
+  font-size: 12px;
+  padding: 10px 0;
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
 
 </style>
+</head>
 <body>
 <h1>Alice in the borderlands</h1>
 
@@ -50,14 +94,17 @@ table {
   <div class="card-header">Chishiya</div>
   <div class="card-main">
     <img src="./../assets/Chishiya.jpg" width="100px" />
+    <div class="main-description">He’s a cunning medical student who would 
+      unscrupulously sacrifice other people to achieve his own goal.</div>
   </div>
 </div>
 </td>
 <td>
 <div class="card">
-  <div class="card-header">Ryohei Arisu</div>
+  <div class="card-header">{{data.full_name}}</div>
   <div class="card-main">
-    <img src="./../assets/Ryouhei_Arisu.png" width="100px" />
+    <img src="{{data.image}}" width="100px" />
+    <div class="main-description">{{data.description}}</div>
   </div>
   </div>
 </td>
@@ -66,6 +113,9 @@ table {
   <div class="card-header">Hikari kuina</div>
   <div class="card-main">
     <img src="./../assets/Hikari_Kuina.jpg" width="100px" />
+    <div class="main-description">Originally specialized in Clubs (balanced games)
+      , after facing her troubled past with her stern father
+      , she redefines herself as a Spades (physical games) player.</div>
   </div>
 </div>
 </td>
@@ -76,27 +126,31 @@ table {
 <hr />
 <br /><br />
 
-<div>
+<div class="login-box">
   <h1 *ngIf="authService.user | async">
     Welcome !!
   </h1>
 
   <div *ngIf="!(authService.user | async)">
-    
+    <div class="user-box">
+      <input [(ngModel)]="email" type="email"/>
       <label>Email</label>
-      <input [(ngModel)]="email" type="email" placeholder="email" />
-    <br>
+    </div>
+    <div class="user-box">
+      <input  type="password" [(ngModel)]="password" />
       <label>Password</label>
-      <input  type="password" [(ngModel)]="password" placeholder="password" />
-    <br>
-    <button (click)="signUp()" [disabled]="!email || !password" style>
-      SignUP
+    </div>
+    <button type="button" class="btn btn-outline-secondary btn-lg btn-block" 
+    (click)="signUp()" [disabled]="!email || !password" style>
+      Sign up
     </button>
-    <button (click)="signIn()" [disabled]="!email || !password">
-      SignIN
+    <button type="button" class="btn btn-light btn-lg btn-block" 
+    (click)="signIn()" [disabled]="!email || !password">
+      Sign in
     </button>
   </div>
-  <button (click)="signOut()" *ngIf="(authService.user | async)">
+  <button type="button" class="btn btn-outline-secondary btn-lg btn-block" 
+  (click)="signOut()" *ngIf="(authService.user | async)">
     SignOut
   </button>
 </div>
