@@ -1,6 +1,7 @@
-# InptCloudMamgas
+# Alice ine the borderLands website 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+Ce projet a étét réalisé dans le cadre de l'élément de module "Serverless" ASEDS INE2 2021
 
 ## Development server
 
